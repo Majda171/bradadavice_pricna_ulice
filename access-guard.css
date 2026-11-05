@@ -1,0 +1,30 @@
+/* Chráněné stránky se nezobrazí, dokud Supabase nepotvrdí přihlášení. */
+html.access-pending,
+html.access-pending body {
+  visibility: hidden !important;
+}
+
+/* v448b: pri docasnem vypadku zobrazit bezpecnou informaci a opakovat overeni. */
+html.access-pending body #bradavice-access-status {
+  visibility:visible !important;
+  position:fixed;
+  z-index:2147483600;
+  left:50%; top:50%; transform:translate(-50%,-50%);
+  width:min(460px,calc(100vw - 36px)); box-sizing:border-box;
+  padding:26px; border-radius:12px;
+  border:1px solid #bd9a5c; background:#241d19;
+  color:#f7e6c8; text-align:center; box-shadow:0 20px 90px #000b;
+  font-family:Georgia,serif;
+}
+#bradavice-access-status[hidden] {display:none!important}
+#bradavice-access-status h2 {margin:0 0 12px;color:#e8c38a;font:700 1.5rem Georgia,serif}
+#bradavice-access-status p {margin:0 0 18px;line-height:1.5;font-size:1rem}
+#bradavice-access-status .access-status-actions {display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+#bradavice-access-status .access-status-actions button,
+#bradavice-access-status .access-status-actions a {
+  cursor:pointer;box-sizing:border-box;display:inline-block;
+  border:1px solid #b58f57;border-radius:6px;padding:11px 14px;
+  text-decoration:none;background:#644629;color:#fff6e8;font:600 .95rem Georgia,serif;
+}
+#bradavice-access-status .access-status-actions a {background:transparent}
+#bradavice-access-status .access-status-actions button[hidden] {display:none!important}

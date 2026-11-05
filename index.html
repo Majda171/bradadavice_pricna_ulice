@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="description" content="Interaktivní Příčná ulice propojená se studentským účtem Bradavic, kouzelnickými obchody a Gringottovou bankou.">
+  <title>Příčná ulice | Bradavice</title>
+  <link rel="stylesheet" href="style.css?v=10">
+  <link rel="stylesheet" href="style-bradavice.css?v=14">
+  <link rel="stylesheet" href="access-guard.css?v=16">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js?v=470"></script>
+  <script src="pricna-guard-v16.js?v=16"></script>
+  <script src="data.js?v=14" defer></script>
+  <script src="pricna-supabase-v16.js?v=16" defer></script>
+  <script src="app.js?v=16" defer></script>
+</head>
+<body>
+  <div id="app" class="app-shell" data-build="10">
+    <header class="place-top">
+      <button type="button" class="castle-return" id="home-button" aria-label="Vrátit se do Děravého kotle">← DĚRAVÝ KOTEL</button>
+      <a class="return-to-castle-v15" href="https://majda171.github.io/skola-car-a-kouzel/hrad.html">↗ BRADAVICE</a>
+      <div class="header-right">
+        <div class="wallet" aria-label="Tvoje galeony"><span class="galleon-symbol">G</span><strong id="wallet-count">0</strong><span class="wallet-unit">galeonů</span></div>
+        <button type="button" class="school-list-link" id="open-list" title="Školní seznam">✉ <span>ŠKOLNÍ SEZNAM</span></button>
+        <button type="button" class="round-control" id="fullscreen-button" aria-label="Celá obrazovka" title="Celá obrazovka">⛶</button>
+        <span class="school-crest" aria-label="Bradavice" title="Bradavice"><img src="assets/bradavice-erb.webp" alt=""></span>
+      </div>
+    </header>
+
+    <main class="main-view">
+      <section class="scene-frame" aria-labelledby="scene-title">
+        <img id="scene-image" class="scene-image" src="ulice/00_deravy_kotel_exterier_cz.webp" alt="Děravý kotel zvenku">
+        <div class="scene-shading" aria-hidden="true"></div>
+        <div id="hotspots" class="hotspot-layer" aria-label="Klikací místa ve scéně"></div>
+        <div id="characters" class="character-layer"></div>
+        <div id="brick-puzzle" class="brick-puzzle" hidden aria-label="Kouzelná cihlová zeď"></div>
+        <div id="courtyard-portal" class="courtyard-portal" hidden aria-hidden="true"><span>✦ PŘÍČNÁ ULICE ✦</span></div>
+        <section id="dialogue-box" class="dialogue-box" aria-label="Rozhovor s postavou" aria-live="polite" hidden></section>
+
+        <div class="scene-story">
+          <p class="overline" id="scene-breadcrumb">Londýn · kouzelnický svět</p>
+          <h1 id="scene-title">Děravý kotel</h1>
+          <p id="scene-description">Za nenápadnými dveřmi hostince se skrývá cesta do kouzelnického světa.</p>
+          <div id="scene-actions" class="scene-action-list"></div>
+        </div>
+
+        <div class="stage-helper" id="stage-helper">Klikni na zářící body nebo použij přechody níže.</div>
+        <nav id="travel-links" class="travel-links scene-side-travel" aria-label="Cesty mezi lokacemi"></nav>
+        <button type="button" id="go-back" class="castle-back" aria-label="Vrátit se do předchozí lokace" title="Zpět">‹</button>
+      </section>
+    </main>
+    <div class="bottom-controls">
+      <button type="button" class="bag-trigger" id="open-inventory" aria-label="Otevřít kouzelnickou brašnu" title="Kouzelnická brašna">
+        <img class="bag-image" src="assets/kouzelny-batoh.webp" alt="">
+        <b id="inventory-badge" class="badge">0</b></button>
+      <button type="button" class="music-toggle" id="toggle-music" aria-pressed="false">🔊 Hudba</button>
+    </div>
+    <audio id="street-music" src="hudba/diagon_alley.mp3" preload="none" loop></audio>
+  </div>
+
+  <section id="bank-intro" class="bank-intro" role="dialog" aria-modal="true" aria-label="Vstup do Gringottovy banky" hidden>
+    <video id="bank-intro-video" class="bank-intro-video" src="banka/bogrod_uvod_v10.mp4" poster="banka/bogrod_uvod_v10_poster.webp" preload="auto" playsinline></video>
+    <p class="bank-intro-caption">✦ GRINGOTTOVA BANKA ✦</p>
+    <button type="button" id="bank-intro-play" class="bank-intro-play" hidden>▶ Přehrát úvod se zvukem</button>
+    <button type="button" id="bank-intro-skip" class="bank-intro-skip">Přeskočit úvod →</button>
+  </section>
+
+  <div class="drawer-scrim" id="drawer-scrim" hidden></div>
+  <aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="drawer-title" hidden>
+    <header class="drawer-header">
+      <div><p class="overline" id="drawer-overline">Příčná ulice</p><h2 id="drawer-title">Obchod</h2></div>
+      <button type="button" id="close-drawer" class="close-button" aria-label="Zavřít panel">×</button>
+    </header>
+    <div id="drawer-content" class="drawer-content"></div>
+  </aside>
+
+  <div id="wand-scrim" class="wand-scrim" hidden></div>
+  <section id="wand-game" class="wand-game" role="dialog" aria-modal="true" aria-labelledby="wand-game-title" hidden>
+    <button type="button" id="close-wand" class="close-button wand-close" aria-label="Odejít od Ollivandera">×</button>
+    <p class="overline">Ollivanderovi · výběr hůlky</p>
+    <h2 id="wand-game-title">Hůlka si vybírá kouzelníka</h2>
+    <div class="wand-meeting">
+      <div class="wand-keeper" aria-label="Pan Ollivander stojí vedle hráče">
+        <img src="postavy/ollivander.webp" alt="Garrick Ollivander, starý výrobce kouzelnických hůlek">
+        <span>Garrick Ollivander</span>
+      </div>
+      <div class="wand-interaction">
+        <p id="wand-ollivander-quote" class="wand-quote" aria-live="polite"></p>
+        <div id="wand-stage" class="wand-stage"><img id="wand-current-image" alt="Zkoušená kouzelnická hůlka" data-wand="wave" title="Mávnout hůlkou"><div id="wand-effects" class="wand-effects" aria-hidden="true"></div></div>
+        <p id="wand-effect-caption" class="wand-effect-caption" aria-live="polite"></p>
+        <p class="wand-click-hint">✦ Zvedni hůlku a mávni s ní ✦</p>
+        <h3 id="wand-item-name"></h3>
+        <p id="wand-item-details" class="wand-details"></p>
+        <p id="wand-item-character" class="wand-character"></p>
+        <div id="wand-controls" class="wand-controls"></div>
+      </div>
+    </div>
+    <p id="wand-progress" class="wand-progress"></p>
+    <button type="button" id="wand-sound-toggle" class="wand-sound-toggle" aria-pressed="true">♪ Zvuky kouzel: zapnuté</button>
+  </section>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <noscript><p class="noscript">Pro fungování interaktivní Příčné ulice je potřeba zapnout JavaScript.</p></noscript>
+</body>
+</html>

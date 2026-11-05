@@ -1,0 +1,40 @@
+{
+  "projekt": "Bradavice – Příčná ulice",
+  "jazyk": "cs",
+  "lokace": [
+    {"id":"kotel_vchod","nazev":"Děravý kotel – zvenku","obrazek":"ulice/00_deravy_kotel_exterier_cz.webp","prechody":["kotel_prizemi"]},
+    {"id":"kotel_prizemi","nazev":"Děravý kotel – hostinec","obrazek":"interiery/deravy_kotel.webp","prechody":["kotel_vchod","kotel_dvorek","kotel_patro"]},
+    {"id":"kotel_patro","nazev":"Děravý kotel – první patro","obrazek":"interiery/deravy_kotel_prvni_patro_chodba.webp","prechody":["kotel_prizemi","kotel_pokoj_11"]},
+    {"id":"kotel_pokoj_11","nazev":"Děravý kotel – pokoj číslo 11","obrazek":"interiery/deravy_kotel_pokoj_11.webp","prechody":["kotel_patro"]},
+    {"id":"kotel_dvorek","nazev":"Děravý kotel – dvorek s cihlovou zdí","obrazek":"ulice/00_deravy_kotel_dvorek_v2.webp","prechody":["kotel_prizemi","kotel_cihly"]},
+    {"id":"kotel_cihly","nazev":"Tajemství cihlové zdi","obrazek":"ulice/00_deravy_kotel_zed_detail.webp","prechody":["kotel_dvorek"]},
+    {"id":"kotel_pruchod","nazev":"Otevřená cesta do Příčné ulice","obrazek":"ulice/00_deravy_kotel_zed_pruchod.webp","prechody":["kotel_dvorek","ulice_1"]},
+    {"id":"ulice_1","nazev":"Příčná ulice – Ollivanderovi a Madam Malkinová","obrazek":"ulice/01_ollivander_malkin_kotliky_sovy_cz.webp","prechody":["kotel_dvorek","ulice_2","ollivanderovi","madam_malkinova","kotliky","sovy"]},
+    {"id":"ulice_2","nazev":"Příčná ulice – knihy, lektvary a zvěřinec","obrazek":"ulice/02_knihy_lektvary_zverinec_pomucky_cz.webp","prechody":["ulice_1","ulice_3","knihkupectvi","apoteka","zverinec","wiseacre"]},
+    {"id":"ulice_3","nazev":"Příčná ulice – famfrpál, zmrzlina a psací potřeby","obrazek":"ulice/03_famfrpal_zmrzlina_hodiny_pera_cz.webp","prechody":["ulice_2","ulice_4","famfrpal","zmrzlina","pisarstvi"]},
+    {"id":"ulice_4","nazev":"Příčná ulice – obchod Freda a George","obrazek":"ulice/04_weasleyovi_obrtla_ulice_cz.webp","prechody":["ulice_3","obrtla","weasleyovi","twilfitt","gringott_vchod"]},
+    {"id":"obrtla","nazev":"Obrtlá ulice","obrazek":"ulice/05_obrtla_ulice_cz.webp","prechody":["ulice_4","borgin"]},
+    {"id":"gringott_vchod","nazev":"Gringottova kouzelnická banka – vchod","obrazek":"banka/01_gringott_exterier_cz.webp","prechody":["ulice_4","gringott_hala"]},
+    {"id":"gringott_hala","nazev":"Gringottova banka – hlavní hala","obrazek":"banka/02_hlavni_hala.webp","prechody":["gringott_vchod","gringott_koleje"]},
+    {"id":"gringott_koleje","nazev":"Gringottova banka – podzemní dráha","obrazek":"banka/03_podzemni_koleje.webp","prechody":["gringott_hala","gringott_713_dvere"]},
+    {"id":"gringott_713_dvere","nazev":"Gringottova banka – cesta k trezoru 713","obrazek":"banka/07_cesta_k_trezoru_713.webp","prechody":["gringott_koleje","gringott_713_vnitr"],"podminka_vstupu":"Skřetí průvodce musí odemknout trezor dotykem."},
+    {"id":"gringott_713_vnitr","nazev":"Trezor 713 – školní příspěvek","obrazek":"banka/08_trezor_713_skolni_fond.webp","prechody":["gringott_713_dvere"],"akce":"Jednou připsat konkrétnímu studentovi 500 galeonů."}
+  ],
+  "ostatni_interiery": [
+    {"id":"ollivanderovi","nazev":"Ollivanderovi","obrazek":"interiery/ollivanderovi.webp"},
+    {"id":"madam_malkinova","nazev":"Madam Malkinová","obrazek":"interiery/madam_malkinova.webp"},
+    {"id":"kotliky","nazev":"U Potage – kotlíky","obrazek":"interiery/kotliky_u_potage.webp"},
+    {"id":"sovy","nazev":"Velkoprodejna Mžourov – sovy","obrazek":"interiery/sovy_mzourovi.webp"},
+    {"id":"knihkupectvi","nazev":"Krucánky a Kaňoury","obrazek":"interiery/krucanky_a_kanoury.webp"},
+    {"id":"apoteka","nazev":"Slug a Jigger – lektvarové přísady","obrazek":"interiery/apoteka_lekvarove_prisady.webp"},
+    {"id":"zverinec","nazev":"Kouzelný zvěřinec","obrazek":"interiery/kouzelny_zverinec.webp"},
+    {"id":"wiseacre","nazev":"Wiseacrovy kouzelnické potřeby","obrazek":"interiery/wiseacrovy_potreby.webp"},
+    {"id":"famfrpal","nazev":"Potřeby pro famfrpál","obrazek":"interiery/potreby_pro_famfrpal.webp"},
+    {"id":"zmrzlina","nazev":"Fortescueovo zmrzlinářství","obrazek":"interiery/fortescueovo_zmrzlinarstvi.webp"},
+    {"id":"pisarstvi","nazev":"Brky a pergameny","obrazek":"interiery/brky_a_pergameny.webp"},
+    {"id":"weasleyovi","nazev":"Kratochvilné kouzelnické kejkle","obrazek":"interiery/kratochvilne_kejkle.webp"},
+    {"id":"twilfitt","nazev":"Twilfitt a Tatting","obrazek":"interiery/twilfitt_a_tatting.webp"},
+    {"id":"borgin","nazev":"Borgin a Burkes","obrazek":"interiery/borgin_a_burkes.webp"}
+  ],
+  "poznamka": "Přechody propojují scény. Souřadnice klikacích oblastí se nastaví až podle rozměrů na webu. Zařazení nového školního fondu do trezoru 713 je vědomá herní odchylka od knih."
+}
