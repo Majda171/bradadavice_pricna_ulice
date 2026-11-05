@@ -2,7 +2,7 @@
 (()=>{'use strict';
  const root=document.documentElement;root.classList.add('access-pending');
  const BRADAVICE='https://majda171.github.io/skola-car-a-kouzel/';
- const signIn=BRADAVICE+'prihlaseni-student.html?next='+encodeURIComponent('https://majda171.github.io/pricna-ulice/');
+ const signIn=BRADAVICE+'prihlaseni-student.html?next='+encodeURIComponent('https://majda171.github.io/bradadavice_pricna_ulice/');
  const DB=window.BradaviceDB;
  const status=document.createElement('section');status.id='bradavice-access-status';status.className='pricna-access-status';status.textContent='Ověřuji studentský účet…';
  const show=(message)=>{status.textContent=message;if(!status.isConnected)document.body?.append(status)};

@@ -19,7 +19,7 @@ assert.equal(scenes.length, allScenes.size, 'Scény musí mít jedinečné názv
 assert.equal(allScenes.has('zerty'), false, 'Dvojitý obchod dvojčat nesmí zůstat ve hře.');
 assert.equal(allScenes.has('weasleyovi'), true);
 assert.equal(data.navigace.lokace.find(scene => scene.id === 'ulice_3').prechody.includes('zerty'), false);
-assert.equal(data.katalog.predmety.length, 69);
+assert.equal(data.katalog.predmety.length, 75);
 assert.equal(data.katalog.predmety.length, catalog.predmety.length);
 assert.equal(data.katalog.pocatecni_prispevek_od_bradavic, 500);
 assert.equal(data.katalog.rozpocet.povinne_vybaveni_celkem, 405);
@@ -32,6 +32,8 @@ assert.equal(formalRobes.filter(item => item.pohlavi === 'divci').length, 7);
 assert.equal(formalRobes.filter(item => item.pohlavi === 'chlapecky').length, 6);
 assert(formalRobes.every(item => item.kategorie === 'spolecensky_habit' && item.povinnost === 'volitelne'));
 assert.equal(formalRobes.find(item => item.id === 'spol_chlap_staromodni').cena, Math.min(...formalRobes.map(item => item.cena)));
+assert.equal(formalRobes.find(item => item.id === 'spol_chlap_staromodni').cena, 40);
+assert.equal(data.katalog.predmety.filter(item => item.kategorie === 'mazlicek').length, 9);
 
 for (const scene of scenes) {
   assert(fs.existsSync(path.join(root, scene.obrazek)), `Chybí obrázek lokace: ${scene.id}`);
@@ -72,7 +74,9 @@ assert(app.includes('Hagrid už je zpátky v hostinci'), 'Tom nesmí po návratu
 assert(app.includes('weasleyovi: [{x:35,height:70,floor:1},{x:73,height:70,floor:1}]'), 'Fred a George musí stát na opačných stranách obchodu.');
 assert(app.includes("obrtla: [['borgin',31,53"), 'Vstup k Borginovi a Burkesovi musí být na dveřích vlevo.');
 assert(app.includes("if (scene.id === 'obrtla')"), 'Duplicitní navigační odkaz do obchodu nesmí zůstat v Obrtlé ulici.');
-assert(app.includes('ollivanderovi: [{x:61,height:74,floor:2}]'), 'Ollivander má stát v plné výšce na podlaze.');
+assert(app.includes('ollivanderovi: [{x:72,height:62,floor:15}]'), 'Ollivander musí mít přiměřené měřítko za pultem.');
 assert(app.includes("'spolecensky_habit'"), 'Společenské hábity musí být vedeny v batohu, odděleně od povinných věcí.');
+for (const asset of ['kings-cross.html','assets/kings-cross-platform.webp','assets/kings-cross-arrival.mp4'])
+  assert(fs.existsSync(path.join(root,asset)),`Chybí scéna nádraží: ${asset}`);
 
 console.log(`V pořádku: ${scenes.length} lokací, ${data.katalog.predmety.length} položek, 3 košťata, 11 nových hůlek, nový Bogrod, české video a přechody.`);

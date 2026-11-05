@@ -127,7 +127,7 @@
       ['Vítej v Děravém kotli. Zastavil ses cestou do Bradavic, že?','Rubeus Hagrid už čeká na zadním dvorku. Projdi kolem baru a dveřmi ven.','A až se vrátíš z nákupů, můžeš se tady zase zastavit.'],['profil','dvorek'],{floor:6})],
     kotel_dvorek: [character('hagrid.webp','Rubeus Hagrid',79,87,
       ['Á, tak tys ten náš novej prvák! Já sem Rubeus Hagrid, klíčník a šafář v Bradavicích. Říkej mi prostě Hagrid.','Tak hele, máš s sebou ten seznam věcí, co ti přišel v dopise? Než se vydáme po obchodech, musíme se kouknout, co všechno budeš potřebovat.','A prvně se stav v Gringottově bance. V trezoru číslo 713 na tebe čeká pět set galeonů od Bradavic. S těma pak pořídíš všechno, co je na seznamu.','Teď koukej na tu zeď. Najdi cihlu se zlatou hvězdou, tři nahoru a dvě doprava. Pak na ni třikrát klepni. Uvidíš, co se stane!'],['list','inventory','hagrid-check','cihly'],{floor:0})],
-    ollivanderovi: [character('ollivander.webp','Garrick Ollivander',74,74,
+    ollivanderovi: [character('ollivander.webp','Garrick Ollivander',70,63,
       ['Á, nový zákazník. Od roku 382 před naším letopočtem se zde vyrábějí nejvybranější hůlky.','Dřevo, jádro, délka i pružnost jsou důležité. Ale nejpodstatnější je, komu se hůlka rozhodne sloužit.','Pojďme jednu po druhé vyzkoušet. Vy jen mávnete — a uvidíme, co se stane.'],['wand','list'])],
     madam_malkinova: [character('madam_malkinova.webp','Madam Malkinová',76,73,
       ['Bradavice? Jak jinak! Postav se prosím sem na stoličku, hned ti vezmu míry.','Tři černé pracovní hábity, špičatou čapku, ochranné rukavice a zimní plášť. Všechno musí dobře sedět.'],['shop','list'])],
@@ -167,7 +167,8 @@
   const characterPlacements = {
     kotel_prizemi: [{x:48,height:70,floor:6},{x:75,height:85,floor:3}],
     kotel_dvorek: [{x:79,height:89,floor:0}],
-    // Ollivander stojí až za pravým pultem; spodní část postavy zakryje přední hrana pultu.
+    // Ollivander stojí v odpovídajícím měřítku až za pravým pultem.
+    ollivanderovi: [{x:72,height:62,floor:15}],
     // Ollivander stojí celý na podlaze před regály, nikoliv za prodejním pultem.
     ollivanderovi: [{x:61,height:74,floor:2}],
     madam_malkinova: [{x:56,height:70,floor:3}],
@@ -616,7 +617,7 @@
         <strong>${escapeHtml(item.nazev)}</strong><small>${escapeHtml(data.katalog.obchody[item.obchod] || item.obchod)}</small>
         <b class="bag-quantity">${itemQuantity(item)} ks</b></article>`).join('')}
         ${Array.from({length:emptyCount},()=>'<div class="bag-item bag-empty" aria-label="Volné místo">✧</div>').join('')}</div>
-      <p class="bag-hint">Zatím se nákupy a galeony uchovávají v tomto prohlížeči. Po propojení s Bradavicemi se budou používat i v hlavní hře.</p>
+      <p class="bag-hint">Nákupy, galeony a vybraný mazlíček se ukládají ke tvému studentskému účtu a jsou propojené s Bradavicemi.</p>
       <button type="button" class="small-button" data-action="reset">Vrátit se na začátek ulice</button>`;
   }
 
@@ -793,7 +794,7 @@
       $('dialogue-box').innerHTML = `<div class="dialogue-head"><strong>✦ Cesta do Bradavic ✦</strong><button type="button" class="dialogue-x" data-talk="close" aria-label="Zavřít">×</button></div>
         <p class="dialogue-speech">„Výborně, ${escapeHtml(state.profile.name || 'prváku')}! Všechno máš. Tak se drž, na nástupišti devět a tři čtvrtě na nás čeká Bradavický expres. A pak tě ve škole čeká rozřazování!“</p>
         <p class="dialogue-hint">Nákupy jsou hotové. Můžeš pokračovat do hlavní hry a později se sem vrátit.</p>
-        <div class="dialogue-choices"><a class="dialogue-choice main" href="https://majda171.github.io/skola-car-a-kouzel/rozrazeni.html">Pokračovat do Bradavic →</a><button type="button" class="dialogue-choice quiet" data-talk="close">Ještě se porozhlédnout</button></div>`;
+        <div class="dialogue-choices"><a class="dialogue-choice main" href="kings-cross.html">Na nádraží King's Cross →</a><button type="button" class="dialogue-choice quiet" data-talk="close">Ještě se porozhlédnout</button></div>`;
       return;
     }
     closeDialogue();

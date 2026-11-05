@@ -1,0 +1,18 @@
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:#090809;color:#fae7b7;font-family:Georgia,serif}
+[hidden]{display:none!important}button,a{font:inherit}a{color:#f6db96}
+.station-scene{position:relative;min-height:100svh;overflow:hidden;display:grid;align-items:end}
+.station-backdrop{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.station-vignette{position:absolute;inset:0;background:linear-gradient(0deg,#080705ed 0%,#0807057f 25%,transparent 60%),linear-gradient(90deg,#08070571,transparent 45%);pointer-events:none}
+.back{position:absolute;top:22px;left:22px;z-index:3;text-decoration:none;padding:9px 14px;border:1px solid #dfbe8059;background:#13100b99;border-radius:5px}
+.station-title{position:relative;z-index:3;max-width:620px;margin:0 0 8vh 5vw;pointer-events:none}
+.station-title span{font-size:.73rem;letter-spacing:.18em;text-transform:uppercase}.station-title h1{font-weight:400;font-size:clamp(2.6rem,6.7vw,6.2rem);margin:9px 0;text-shadow:0 7px 19px #000}.station-title p{font-size:clamp(.95rem,1.5vw,1.24rem);line-height:1.6;max-width:500px;margin:0;color:#f3e4cc;text-shadow:0 2px 10px #000}
+.station-train{position:absolute;z-index:2;left:48%;top:22%;width:49%;height:53%;background:none;border:0;cursor:pointer;color:#fff0c4}
+.station-train span{position:absolute;bottom:2%;left:24%;transform:translateX(-15%);white-space:nowrap;padding:10px 17px;border:1px solid #ffdea585;background:#120c08c7;border-radius:6px;box-shadow:0 0 15px #000}
+.station-train:hover span,.station-train:focus-visible span{background:#4a2f21e8;border-color:#fff0c9}
+.station-train:disabled{cursor:wait;opacity:.5}
+.station-status{position:absolute;z-index:4;right:3vw;bottom:18px;max-width:380px;color:#eed5ad;background:#1d140dce;padding:11px 15px;border:1px solid #d2b67c56;border-radius:4px;font-size:13px}
+.station-finish{position:absolute;z-index:6;right:4vw;bottom:12%;padding:16px 23px;text-decoration:none;background:#47351d;border:1px solid #e6c58a;border-radius:6px}
+.station-film{position:fixed;inset:0;z-index:100;display:grid;place-items:center;align-content:center;gap:20px;padding:2vw;background:#050403f5}
+.station-film video{width:min(1100px,98vw);max-height:78vh;object-fit:contain;border:1px solid #c4a36b66;background:#000}
+.station-film button{padding:14px 22px;background:#574124;color:#fce9c1;border:1px solid #d8b57a;border-radius:6px;cursor:pointer}
+@media(max-width:720px){.station-title{margin:0 5% 7vh}.station-backdrop{object-position:65% center}.station-train{left:35%;width:65%;top:17%;height:55%}.station-train span{font-size:12px;left:0}.station-status{bottom:8px;left:4%;right:4%;font-size:12px}.station-finish{bottom:20%}}
