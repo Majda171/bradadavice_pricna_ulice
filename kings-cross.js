@@ -4,7 +4,7 @@
  const film=document.getElementById('trainFilm'),video=document.getElementById('stationVideo');
  const finish=document.getElementById('finishJourney'),sorting=document.getElementById('toSorting');
  const say=s=>{status.textContent=s};
- let allowed=false,done=false,finishing=false;
+ let allowed=false,done=false,finishing=false,manualPlayback=false;
  async function verify(){
   try{
    if(!DB)throw new Error('Nepodařilo se připojit k Bradavicím.');
@@ -17,16 +17,56 @@
   }catch(e){console.warn('King’s Cross:',e);say('Nádraží zatím nelze ověřit. Zkontroluj připojení a SQL soubor 03_nadrazi_poklady_a_sovi_posta.sql.');}
  }
  async function complete(){
-  if(finishing)return;finishing=true;finish.disabled=true;say('Zaznamenávám cestu do Bradavic…');
+  if(finishing)return;
+  finishing=true;finish.disabled=true;finish.hidden=true;
+  say('Bradavický expres dorazil. Přecházíme k rozřazování…');
   try{
-   if(!done){const {data,error}=await DB.rpc('v17_complete_station');if(error||!data?.stationCompleted)throw error||new Error('Potvrzení se nezdařilo');done=true;}
-   film.hidden=true;sorting.hidden=false;say('Bradavický expres dorazil. Čeká tě rozřazování!');
-  }catch(e){console.warn(e);finish.hidden=false;finish.textContent='Zkusit zapsat příjezd znovu';say('Cestu se nepodařilo zapsat. Zkus to znovu.');}
+   if(!done){
+    const {data,error}=await Promise.race([
+     DB.rpc('v17_complete_station'),
+     new Promise((_,reject)=>setTimeout(()=>reject(new Error('Potvrzení cesty trvá příliš dlouho.')),6000))
+    ]);
+    if(error||!data?.stationCompleted)throw error||new Error('Potvrzení se nezdařilo');
+    done=true;
+   }
+   // Po skončení filmu nepřidáváme další tlačítko ani potvrzovací obrazovku.
+   if(document.fullscreenElement)document.exitFullscreen?.().catch(()=>{});
+   window.location.assign(sorting.href);
+  }catch(e){
+   console.warn('King’s Cross: dokončení cesty',e);
+   finish.hidden=false;finish.textContent='Zkusit dokončit cestu →';
+   say('Cestu se nepodařilo zapsat. Zkontroluj připojení a zkus to znovu.');
+  }
   finally{finishing=false;finish.disabled=false}
  }
- train.addEventListener('click',()=>{if(!allowed)return;film.hidden=false;finish.hidden=false;finish.textContent='Pokračovat po příjezdu →';finish.hidden=true;video.currentTime=0;video.play().catch(()=>{finish.hidden=false;finish.textContent='Potvrdit příjezd →';say('Spusť video tlačítkem přehrávání.');});});
- video.addEventListener('ended',()=>{finish.hidden=false;complete()});
- finish.addEventListener('click',complete);
+ train.addEventListener('click',()=>{
+  if(!allowed||finishing)return;
+  film.hidden=false;
+  finish.hidden=true;
+  manualPlayback=false;
+  video.currentTime=0;
+  // Celá obrazovka včetně prohlížeče, pokud ji zařízení dovolí;
+  // jinak alespoň celoobrazovková vrstva přes celý viewport.
+  film.requestFullscreen?.().catch(()=>{});
+  video.play().catch(()=>{
+   manualPlayback=true;
+   finish.hidden=false;finish.textContent='▶ Přehrát cestu Bradavickým expresem';
+   say('Spusť video klepnutím na tlačítko přehrávání.');
+  });
+ });
+ video.addEventListener('ended',complete);
+ video.addEventListener('error',()=>{
+  if(film.hidden)return;
+  manualPlayback=false;finish.hidden=false;
+  finish.textContent='Video se nenačetlo – dokončit cestu →';
+  say('Video se nepodařilo načíst. Cestu můžeš přesto dokončit.');
+ });
+ finish.addEventListener('click',()=>{
+  if(!manualPlayback){complete();return}
+  video.play().then(()=>{manualPlayback=false;finish.hidden=true}).catch(()=>{
+   say('Přehrávání je zablokované. Zkus tlačítko ještě jednou.');
+  });
+ });
  window.addEventListener('pagehide',()=>video.pause());
  verify();
 })();
