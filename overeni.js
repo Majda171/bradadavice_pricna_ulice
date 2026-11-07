@@ -12,6 +12,7 @@ const catalog = JSON.parse(fs.readFileSync(path.join(root, 'katalog_obchodu.json
 const navigation = JSON.parse(fs.readFileSync(path.join(root, 'navigace_lokaci.json'), 'utf8'));
 const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
 const css = fs.readFileSync(path.join(root, 'style-bradavice.css'), 'utf8');
+const catalogUpdate = fs.readFileSync(path.join(root, 'supabase/04_aktualizace_katalogu_2026-11-06.sql'), 'utf8');
 
 const scenes = [...data.navigace.lokace, ...data.navigace.ostatni_interiery];
 const allScenes = new Set(scenes.map(scene => scene.id));
@@ -43,6 +44,7 @@ for (const scene of [...navigation.lokace, ...navigation.ostatni_interiery]) {
   assert(allScenes.has(scene.id), `Scéna chybí v data.js: ${scene.id}`);
 }
 for (const item of data.katalog.predmety) {
+  assert(catalogUpdate.includes(`('${item.id}',`), `V aktualizaci Supabase chybí výrobek: ${item.id}`);
   assert(fs.existsSync(path.join(root, item.obrazek)), `Chybí obrázek zboží: ${item.id}`);
   assert(item.cena > 0 && item.cena < 500, `Neplatná cena: ${item.id}`);
   assert(data.katalog.obchody[item.obchod], `Neznámý obchod: ${item.obchod}`);
@@ -74,7 +76,12 @@ assert(app.includes('Hagrid už je zpátky v hostinci'), 'Tom nesmí po návratu
 assert(app.includes('weasleyovi: [{x:35,height:70,floor:1},{x:73,height:70,floor:1}]'), 'Fred a George musí stát na opačných stranách obchodu.');
 assert(app.includes("obrtla: [['borgin',31,53"), 'Vstup k Borginovi a Burkesovi musí být na dveřích vlevo.');
 assert(app.includes("if (scene.id === 'obrtla')"), 'Duplicitní navigační odkaz do obchodu nesmí zůstat v Obrtlé ulici.');
-assert(app.includes('ollivanderovi: [{x:72,height:62,floor:15}]'), 'Ollivander musí mít přiměřené měřítko za pultem.');
+assert(app.includes('ollivanderovi: [{x:62,height:98,floor:1}]'), 'Ollivander musí stát na podlaze a mít realistickou výšku.');
+assert(css.includes('width:min(39vw,600px)'), 'Ollivander musí být na počítači opravdu výrazně větší.');
+assert(css.includes('width:min(74vw,355px)'), 'Ollivander musí být výrazný i na mobilu.');
+const station=fs.readFileSync(path.join(root,'kings-cross.js'),'utf8');
+assert(station.includes(".select('house_code').eq('id',userInfo.user.id).single()"), 'Nádraží musí ověřovat skutečnou kolej v Supabase.');
+assert(station.includes('sorting.href=alreadySorted ? CASTLE_URL'), 'Rozřazený student se musí vrátit přímo do hradu.');
 assert(app.includes("'spolecensky_habit'"), 'Společenské hábity musí být vedeny v batohu, odděleně od povinných věcí.');
 for (const asset of ['kings-cross.html','assets/kings-cross-platform.webp','assets/kings-cross-arrival.mp4'])
   assert(fs.existsSync(path.join(root,asset)),`Chybí scéna nádraží: ${asset}`);

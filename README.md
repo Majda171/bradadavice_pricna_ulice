@@ -22,6 +22,19 @@ SQL vytvoří tabulky `shops`, `shop_products`, `student_wallets`, `shop_purchas
 
 > Důležité: zkušební nákupy dříve uložené jen do `localStorage` nejsou automaticky převedené do nové databáze. U účtů s důležitými staršími nákupy je nutné udělat kontrolovanou migraci — nechtěli jsme umožnit hráči libovolně si připsat galeony importem z prohlížeče.
 
+### Aktualizace katalogu po přidání nových obrázků a výrobků
+
+Pokud obchod zobrazí novou sovu, kočku nebo jiný předmět, ale při nákupu
+hlásí **„Položka není v katalogu“**, znamená to, že databáze nemá
+aktuální záznam o produktu. Nestačí nahrát soubory na GitHub.
+
+V **Supabase → SQL Editor → New query** vlož a spusť
+`supabase/04_aktualizace_katalogu_2026-11-06.sql`.
+Skript bezpečně doplní/aktualizuje všech 75 položek z aktuální hry,
+včetně devíti mazlíčků, košťat a společenských hábitů. Je opakovatelný,
+nepřičítá ani neodečítá galeony a nesmaže již provedené nákupy.
+Na konci ukáže počet aktivních produktů a seznam mazlíčků pro kontrolu.
+
 ## Nahrání na GitHub
 
 1. Založ samostatný repozitář pro Příčnou ulici.

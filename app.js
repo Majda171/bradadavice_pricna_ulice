@@ -167,10 +167,8 @@
   const characterPlacements = {
     kotel_prizemi: [{x:48,height:70,floor:6},{x:75,height:85,floor:3}],
     kotel_dvorek: [{x:79,height:89,floor:0}],
-    // Ollivander stojí v odpovídajícím měřítku až za pravým pultem.
-    ollivanderovi: [{x:72,height:62,floor:15}],
     // Ollivander stojí celý na podlaze před regály, nikoliv za prodejním pultem.
-    ollivanderovi: [{x:61,height:74,floor:2}],
+    ollivanderovi: [{x:62,height:98,floor:1}],
     madam_malkinova: [{x:56,height:70,floor:3}],
     weasleyovi: [{x:35,height:70,floor:1},{x:73,height:70,floor:1}],
     zmrzlina: [{x:61,height:67,floor:2}],
@@ -792,7 +790,7 @@
       const result=await serverChange(()=>shopDB.setProgress(state.current,true));
       if(!result)return;
       $('dialogue-box').innerHTML = `<div class="dialogue-head"><strong>✦ Cesta do Bradavic ✦</strong><button type="button" class="dialogue-x" data-talk="close" aria-label="Zavřít">×</button></div>
-        <p class="dialogue-speech">„Výborně, ${escapeHtml(state.profile.name || 'prváku')}! Všechno máš. Tak se drž, na nástupišti devět a tři čtvrtě na nás čeká Bradavický expres. A pak tě ve škole čeká rozřazování!“</p>
+        <p class="dialogue-speech">„Výborně, ${escapeHtml(state.profile.name || 'prváku')}! Všechno máš. Tak se drž, na nástupišti devět a tři čtvrtě na nás čeká Bradavický expres. A pak už vzhůru do Bradavic!“</p>
         <p class="dialogue-hint">Nákupy jsou hotové. Můžeš pokračovat do hlavní hry a později se sem vrátit.</p>
         <div class="dialogue-choices"><a class="dialogue-choice main" href="kings-cross.html">Na nádraží King's Cross →</a><button type="button" class="dialogue-choice quiet" data-talk="close">Ještě se porozhlédnout</button></div>`;
       return;
