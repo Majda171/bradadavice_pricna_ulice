@@ -168,7 +168,7 @@
     kotel_prizemi: [{x:48,height:70,floor:6},{x:75,height:85,floor:3}],
     kotel_dvorek: [{x:79,height:89,floor:0}],
     // Ollivander stojí celý na podlaze před regály, nikoliv za prodejním pultem.
-    ollivanderovi: [{x:62,height:98,floor:1}],
+    ollivanderovi: [{x:62,height:75,floor:1}],
     madam_malkinova: [{x:56,height:70,floor:3}],
     weasleyovi: [{x:35,height:70,floor:1},{x:73,height:70,floor:1}],
     zmrzlina: [{x:61,height:67,floor:2}],

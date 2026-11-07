@@ -76,9 +76,9 @@ assert(app.includes('Hagrid už je zpátky v hostinci'), 'Tom nesmí po návratu
 assert(app.includes('weasleyovi: [{x:35,height:70,floor:1},{x:73,height:70,floor:1}]'), 'Fred a George musí stát na opačných stranách obchodu.');
 assert(app.includes("obrtla: [['borgin',31,53"), 'Vstup k Borginovi a Burkesovi musí být na dveřích vlevo.');
 assert(app.includes("if (scene.id === 'obrtla')"), 'Duplicitní navigační odkaz do obchodu nesmí zůstat v Obrtlé ulici.');
-assert(app.includes('ollivanderovi: [{x:62,height:98,floor:1}]'), 'Ollivander musí stát na podlaze a mít realistickou výšku.');
-assert(css.includes('width:min(39vw,600px)'), 'Ollivander musí být na počítači opravdu výrazně větší.');
-assert(css.includes('width:min(74vw,355px)'), 'Ollivander musí být výrazný i na mobilu.');
+assert(app.includes('ollivanderovi: [{x:62,height:75,floor:1}]'), 'Ollivander musí stát na podlaze a mít přiměřenou výšku.');
+assert(css.includes('width:min(34vw,520px)'), 'Ollivander musí mít přirozené měřítko na počítači.');
+assert(css.includes('width:min(60vw,290px)'), 'Ollivander musí mít přirozené měřítko i na mobilu.');
 const station=fs.readFileSync(path.join(root,'kings-cross.js'),'utf8');
 assert(station.includes(".select('house_code').eq('id',userInfo.user.id).single()"), 'Nádraží musí ověřovat skutečnou kolej v Supabase.');
 assert(station.includes('sorting.href=alreadySorted ? CASTLE_URL'), 'Rozřazený student se musí vrátit přímo do hradu.');
